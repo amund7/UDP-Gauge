@@ -16,10 +16,12 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,28 +30,19 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.DigitalClock;
 import android.widget.GridView;
 import android.widget.ToggleButton;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 
 
 
-public class UdpActivity extends Activity implements OnLongClickListener,
-										             OnSharedPreferenceChangeListener {
+public class UdpActivity extends Activity implements OnLongClickListener {
 	public static int SERVERPORT = 4444;
 	public static int udpTimeout;
 	boolean thingspeakStartupEnabled;
@@ -116,6 +109,7 @@ public class UdpActivity extends Activity implements OnLongClickListener,
 	{
 		super.onCreate(savedInstanceState);
 
+		
 		// Notification stuff
 		notificationManager =
 	    	      (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -128,6 +122,14 @@ public class UdpActivity extends Activity implements OnLongClickListener,
 		new GetJSONFromUrl();
 
 		setContentView(R.layout.main);
+
+		/*Map<String, ?> allEntries = mPrefs.getAll();
+		// If prefs are empty (= first start), add a default Thingspeak channel.
+		if (allEntries.isEmpty()) {
+			SharedPreferences.Editor ed = mPrefs.edit();
+			ed.putString("channel0", "12983");
+			ed.putBoolean("channel0Enabled", true);
+		}*/
 
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -145,9 +147,9 @@ public class UdpActivity extends Activity implements OnLongClickListener,
 		thingspeakURL=mPrefs.getString("thingspeak_url","");
 		thingspeakInterval=Integer.parseInt(mPrefs.getString("thingspeak_interval", ""))*1000;
 		
-		SERVERPORT=Integer.parseInt(mPrefs.getString("upd_port", "4444"));
-		udpTimeout=Integer.parseInt(mPrefs.getString("upd_timeout", "30"))*1000;		
-		Log.d("UDPprefs", "udp_timeout: "+mPrefs.getString("upd_timeout", "0"));
+		SERVERPORT=Integer.parseInt(mPrefs.getString("udp_port", "4444"));
+		udpTimeout=Integer.parseInt(mPrefs.getString("udp_timeout", "30"))*1000;		
+		Log.d("UDPprefs", "udp_timeout: "+mPrefs.getString("udp_timeout", "0"));
 
 		numColumns=mPrefs.getInt("numColumns",2);		
 		gridView1.setNumColumns(numColumns);
@@ -167,17 +169,15 @@ public class UdpActivity extends Activity implements OnLongClickListener,
 
 		
 		final Thingspeak thingspeak=new Thingspeak();	
-		
+
 		Map<String, ?> allEntries = mPrefs.getAll();
+		//allEntries=mPrefs.getAll();
 		for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
 		    Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
-			if ((entry.getKey().contains("channel"))
-					|| (!entry.getKey().contains("Enabled"))) {
-				//if (!entry.getKey().contains("Enabled"))
+			if ((entry.getKey().contains("channel")) && 
+				(!entry.getKey().contains("Enabled"))){
 				boolean en=mPrefs.getBoolean(entry.getKey()+"Enabled",false);
-				//if (allEntries.containsKey(entry.getKey()+"Enabled"))
-					//en=allEntries.get(key)
-					thingspeak.Add(entry.getValue().toString(), thingspeakInterval, thingspeakStartupURL, thingspeakURL,en);
+					thingspeak.Add(entry.getValue().toString(), thingspeakInterval, thingspeakStartupURL, thingspeakURL, en);
 			}
 		}
 		
@@ -601,6 +601,7 @@ public class UdpActivity extends Activity implements OnLongClickListener,
             case R.id.settings:
                 Intent intent = new Intent(this, PrefsActivity.class);
                 startActivity(intent);
+                finish(); // Kill this one. Else it causes too much trouble to try to reinitialize all values and threads
                 return true;
             case R.id.plus:
             	plusClick();
@@ -671,16 +672,6 @@ public class UdpActivity extends Activity implements OnLongClickListener,
                 return super.onContextItemSelected(item);
         }
     }
-
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1) {
-		// TODO Auto-generated method stub
-        //if (key.equals("weightValues")) {
-        //    weight = Integer.parseInt((prefs.getString("weightPref", "120")));
-        //}
-
-	}
     
     
 }

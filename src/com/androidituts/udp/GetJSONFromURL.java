@@ -60,11 +60,13 @@ class GetJSONFromUrl extends AsyncTask<String, Void, String> {
 			int bytes,totalbytes=0;
 			char [] buf=new char[1024];
 			//long bytes=0;
+			if (!urls[0].contains("last"))
+				UdpActivity.updatetrack("ch"+channel+":"+totalbytes);
 			while ((bytes = reader.read(buf)) != -1) {
 				sb.append(buf, 0, bytes);
 				totalbytes++; // counts kilobytes
-				/*if (!urls[0].contains("last"))
-					UdpActivity.updatetrack("Loading:"+totalbytes);*/
+				if (!urls[0].contains("last"))
+					UdpActivity.updatetrack("ch"+channel+":"+totalbytes);
 			}
 			is.close();
 			result = sb.toString();

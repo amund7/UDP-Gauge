@@ -3,7 +3,9 @@
 
 <PreferenceCategory android:title="UDP">
     
-</PreferenceCategory><EditTextPreference
+</PreferenceCategory>
+
+<EditTextPreference
     android:key="udp_port"
     android:title="UDP Port"
     android:defaultValue="4444"/>
@@ -11,7 +13,7 @@
 <EditTextPreference
     android:key="udp_timeout"
     android:title="UDP timeout (sec)"
-    android:defaultValue="10"/><PreferenceCategory android:title="Thingspeak"></PreferenceCategory>
+    android:defaultValue="30"/><PreferenceCategory android:title="Thingspeak"></PreferenceCategory>
 
 <EditTextPreference
     android:key="thingspeak_startup_url"
@@ -30,6 +32,14 @@
 
 <Preference android:title="Add channel"
                 android:key="button"/>
+
+<PreferenceCategory android:title="Thingspeak channels" android:key="thingspeakcategory">
+    
+<EditTextPreference android:key="channel0" android:defaultValue="12983" />
+<CheckBoxPreference android:defaultValue="true" android:key="channel0Enabled"/>
+
+</PreferenceCategory>
+
 
 
 </PreferenceScreen>
