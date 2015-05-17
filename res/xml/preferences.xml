@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+<PreferenceCategory android:title="UDP">
+    
+</PreferenceCategory><EditTextPreference
+    android:key="udp_port"
+    android:title="UDP Port"
+    android:defaultValue="4444"/>
+
+<EditTextPreference
+    android:key="udp_timeout"
+    android:title="UDP timeout (sec)"
+    android:defaultValue="10"/><PreferenceCategory android:title="Thingspeak"></PreferenceCategory>
+
+<EditTextPreference
+    android:key="thingspeak_startup_url"
+    android:title="Startup URL"
+    android:defaultValue="http://api.thingspeak.com/channels/{0}/feeds.json?days=1&amp;timescale=10"/>
+
+<EditTextPreference
+    android:key="thingspeak_url"
+    android:title="Polling URL"
+    android:defaultValue="http://api.thingspeak.com/channels/{0}/feeds/last.json"/>
+
+<EditTextPreference
+    android:key="thingspeak_interval"
+    android:title="Polling interval (sec)"
+    android:defaultValue="170"/>
+
+<Preference android:title="Add channel"
+                android:key="button"/>
+
+
+</PreferenceScreen>
+
+

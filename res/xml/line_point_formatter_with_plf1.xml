@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config
+        linePaint.strokeWidth="3dp"
+        linePaint.color="#0000AA"
+        vertexPaint.color="#000077"
+        androidPlot.legendWidget.visible="false"
+        pointLabelFormatter.textPaint.color="#FFFFFF"/>

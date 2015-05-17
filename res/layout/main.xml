@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridView
+        android:id="@+id/gridView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:cacheColorHint="@android:color/background_dark"
+        android:fastScrollEnabled="true"
+        android:numColumns="2"
+        android:scrollingCache="true"
+        android:stackFromBottom="false" >
+
+    </GridView>
+
+    <DigitalClock
+        android:id="@+id/digitalClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:includeFontPadding="false"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="10"
+        android:text="DigitalClock"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="120sp"
+        android:typeface="monospace"
+        android:visibility="gone" />
+
+</RelativeLayout>

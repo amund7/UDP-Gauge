@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:id="@+id/group1" android:checkableBehavior="all" android:menuCategory="container" android:visible="true" android:enabled="true">
+    	<item android:id="@+id/showGraph" android:title="Show graph" android:checkable="true" android:checked="true"></item>
+    	<item android:id="@+id/showClock" android:title="Show clock" android:checkable="true"></item>
+    </group>
+    <item android:id="@+id/minus" android:title="Less columns"></item><item android:id="@+id/plus" android:title="More columns"></item><item android:id="@+id/settings" android:title="Settings"></item>
+    <item android:id="@+id/bluetooth" android:title="Restart bluetooth"></item>
+    
+    
+    
+    
+
+</menu>
