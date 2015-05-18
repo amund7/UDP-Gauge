@@ -1,6 +1,7 @@
 package com.androidituts.udp;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -35,15 +36,17 @@ class GetJSONFromUrl extends AsyncTask<String, Void, String> {
 
 		// http post
 		try {
-
-			/*if (!urls[0].contains("last"))
-				UdpActivity.updatetrack("Loading: 0");*/
+			
 			URL=urls[0];
 			channel=URL.substring(0, URL.indexOf("feed")).replaceAll("\\D+","");
+
+			if (!urls[0].contains("last"))
+				UdpActivity.updatetrack("Loading "+channel+": "+0);
+			
 			HttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
 			HttpGet httpget = new HttpGet(urls[0]);
 			httpget.setHeader("Content-type", "application/json");
-
+			
 			System.out.println("Getting...");
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
@@ -60,20 +63,18 @@ class GetJSONFromUrl extends AsyncTask<String, Void, String> {
 			int bytes,totalbytes=0;
 			char [] buf=new char[1024];
 			//long bytes=0;
-			if (!urls[0].contains("last"))
-				UdpActivity.updatetrack("ch"+channel+":"+totalbytes);
 			while ((bytes = reader.read(buf)) != -1) {
 				sb.append(buf, 0, bytes);
 				totalbytes++; // counts kilobytes
 				if (!urls[0].contains("last"))
-					UdpActivity.updatetrack("ch"+channel+":"+totalbytes);
+					UdpActivity.updatetrack("Loading "+channel+":"+totalbytes);
 			}
 			is.close();
 			result = sb.toString();
 			System.out.println("Done.");
 			
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
+		} catch (IOException e) {
+			Log.e("log_tag", "Error in http connection "+channel + e.toString());
 		}
 		return "";
 	}

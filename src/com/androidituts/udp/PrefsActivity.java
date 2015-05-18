@@ -8,7 +8,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -78,10 +77,11 @@ implements OnSharedPreferenceChangeListener {
 		
 		PreferenceScreen screen = this.getPreferenceScreen();// getPreferenceManager(). .createPreferenceScreen(this);
 	
-		category = new PreferenceCategory(this);
-		category.setTitle("Thingspeak channels");
+		category=(PreferenceCategory) screen.findPreference("thingspeakcategory");
+		//category = new PreferenceCategory(this);
+		//category.setTitle("Thingspeak channels");
 
-		screen.addPreference(category);
+		//screen.addPreference(category);
 		
 		setPreferenceScreen(screen);
 		
@@ -106,16 +106,37 @@ implements OnSharedPreferenceChangeListener {
 		
 	} 
 	
-	/*private void restartActivity() {
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    getPreferenceScreen().getSharedPreferences()
+	            .registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	protected void onPause() {
+	    super.onPause();
+	    getPreferenceScreen().getSharedPreferences()
+	            .unregisterOnSharedPreferenceChangeListener(this);
+	    // Restart UdpActivity
+        Intent intent = new Intent(this, UdpActivity.class);
+        startActivity(intent);
+
+	}
+	
+/*	private void restartActivity() {
 	    Intent intent = getIntent();
 	    finish();
 	    startActivity(intent);	    
-	}
+	}*/
 	
-    @Override
-    protected void onStop() {
+/*    @Override
+   protected void onStop() {
         super.onStop();
-        restartActivity();
+        super
+        finish();
+        //restartActivity();
         //getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }*/
 	

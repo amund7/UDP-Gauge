@@ -119,7 +119,7 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 		
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		new GetJSONFromUrl();
+		//new GetJSONFromUrl();
 
 		setContentView(R.layout.main);
 
@@ -390,11 +390,15 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 	}
 
 	public static void updatetrack(String s){
+		try {
 		Message msg = new Message();
 		String textTochange = s;
 		Log.d("UDPIN",s);
 		msg.obj = textTochange;
 		Handler.sendMessage(msg);
+		} catch (Exception e) {
+			Log.d("UDPIN","Exception "+e.toString()+" "+s);
+		}
 	}
 
 

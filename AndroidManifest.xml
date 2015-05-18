@@ -11,7 +11,7 @@
     <application
         android:icon="@android:drawable/btn_star_big_on"
         android:label="@string/app_name" 
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar" android:persistent="false">
         <activity
             android:name=".UdpActivity"
             android:label="@string/app_name" 
@@ -24,18 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PrefsActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleInstance"
-            android:noHistory="false"
-            android:configChanges="orientation|keyboardHidden" > 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="PrefsActivity"></activity>
         </application>
 
 </manifest>
