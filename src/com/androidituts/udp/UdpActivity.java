@@ -250,7 +250,8 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 				}
 				if (!found) {
 					if (setdesc) {
-						sensors.add(0,new Sensor(splitted[0]+':',splitted[1],-Sensor.createcounter));
+						int order=mPrefs.getInt(splitted[0]+':'+"order",-Sensor.createcounter);
+						sensors.add(0,new Sensor(splitted[0]+':',splitted[1],order));
 						Sensor s=sensors.get(0);
 						s.timeout=thingspeakInterval*2;
 					}
