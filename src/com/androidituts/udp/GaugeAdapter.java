@@ -200,7 +200,11 @@ public class GaugeAdapter extends BaseAdapter {
             	holder.textView.setText(s.id);
             else
             	holder.textView.setText(s.description);
-            holder.valueField.setText((s.getValue()+"").replace(".0", "")); // ugly hack to remove .0 on integer numbers :)
+            
+            if ((s.getValue()+"").endsWith(".0"))
+            	holder.valueField.setText((s.getValue()+"").replace(".0", "")); // ugly hack to remove .0 on integer numbers :)
+            else
+            	holder.valueField.setText((s.getValue()+""));
             holder.prog.setMax((int) ((s.max-s.min)*1000));
             holder.prog.setProgress((int) ((s.getValue()-s.min)*1000));
             holder.minField.setText(s.min+"");

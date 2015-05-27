@@ -661,6 +661,26 @@ public class UdpActivity extends Activity implements OnLongClickListener {
             	Collections.sort(sensors);
             	adapter.notifyDataSetChanged();
                 return true;
+            case R.id.top:
+            	if (pos==0) return true; // cant move further up
+            	order1=sensors.get(0).sortorder;
+            	order2=sensors.get(pos).sortorder;
+            	// swap position of the sortorder index
+            	sensors.get(0).sortorder=order2;
+            	sensors.get(pos).sortorder=order1;
+            	Collections.sort(sensors);
+            	adapter.notifyDataSetChanged();
+                return true;
+            case R.id.bottom:
+            	if (pos==sensors.size()-1) return true; // cant move further down
+            	order1=sensors.get(sensors.size()-1).sortorder;
+            	order2=sensors.get(pos).sortorder;
+            	// swap position of the sortorder index
+            	sensors.get(sensors.size()-1).sortorder=order2;
+            	sensors.get(pos).sortorder=order1;
+            	Collections.sort(sensors);
+            	adapter.notifyDataSetChanged();
+                return true;
             case R.id.clear:
             	float min=sensors.get(pos).history.get(1).floatValue();
             	float max=min;

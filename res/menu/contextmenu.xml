@@ -5,6 +5,8 @@
         <item android:id="@+id/down" android:title="Down"></item>
         <item android:id="@+id/clear" android:title="Clear min/max"></item>
         <item android:id="@+id/notify" android:title="Status bar"></item>
+        <item android:id="@+id/top" android:title="Top"></item>
+        <item android:id="@+id/bottom" android:title="Bottom"></item>
     </group>
     
 
