@@ -50,6 +50,7 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 	boolean thingspeakEnabled;
 	String thingspeakURL;
 	int thingspeakInterval;
+	public static boolean scale;
 
 	// public EditText input;
 	public GridView gridView1;
@@ -157,6 +158,7 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 		DigitalClock digitalClock=(DigitalClock)findViewById(R.id.digitalClock1);
 		digitalClock.setVisibility(mPrefs.getInt("clockVisible", 8));
 
+		scale=mPrefs.getBoolean("scaleMode", false);
 		
 		registerForContextMenu(gridView1);
 		
@@ -420,6 +422,7 @@ public class UdpActivity extends Activity implements OnLongClickListener {
 
 		DigitalClock digitalClock=(DigitalClock)findViewById(R.id.digitalClock1);
 		ed.putInt("clockVisible", digitalClock.getVisibility());
+		ed.putBoolean("scaleMode",scale);
 		
 		ed.commit();
 		
@@ -623,7 +626,11 @@ public class UdpActivity extends Activity implements OnLongClickListener {
                 	Log.d("UDPbt",ex.toString());
                 }
             	return true;
-            default:
+            case R.id.scale:
+            	scale=!scale;             	
+            	item.setChecked(scale);
+            	return true;
+           default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -691,7 +698,7 @@ public class UdpActivity extends Activity implements OnLongClickListener {
             	sensors.get(pos).min=min;
             	sensors.get(pos).max=max;
             	return true;
-            case R.id.notify:
+             case R.id.notify:
             	
             default:
                 return super.onContextItemSelected(item);

@@ -220,7 +220,10 @@ public class GaugeAdapter extends BaseAdapter {
 	            	//holder.series1.addLast(0, s.value);
 	            	//holder.series1.notify();
 	            	holder.series1.setModel(s.history, SimpleXYSeries.ArrayFormat.XY_VALS_INTERLEAVED);
-		            holder.plot.setRangeBoundaries(s.min, s.max, BoundaryMode.FIXED);
+	            	if (UdpActivity.scale)
+	            		holder.plot.setRangeBoundaries(s.min, s.max, BoundaryMode.AUTO);
+	            	else
+	            		holder.plot.setRangeBoundaries(s.min, s.max, BoundaryMode.FIXED);
 
 	            	//holder.plot.redraw();
 	            }

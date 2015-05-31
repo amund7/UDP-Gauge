@@ -1,6 +1,7 @@
 package com.androidituts.udp;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Sensor implements Comparable<Sensor> {
 	
@@ -104,6 +105,8 @@ public class Sensor implements Comparable<Sensor> {
 			}
 			
 			while (history.size()>1000) { // Delete if more than 500 datapoints (x,y)
+				//Random rand=new Random();
+				//int r=rand.nextInt(history.size())/2*2;
 				history.remove(0);
 				history.remove(0);
 			}
